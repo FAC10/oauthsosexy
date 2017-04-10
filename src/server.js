@@ -1,6 +1,7 @@
 const hapi = require('hapi');
 const inert = require('inert');
-const routes = require('./routes');
+const routes = require('./routes/routes.js');
+const login = require('./routes/login.js');
 const fs = require('fs');
 const path = require ('path');
 
@@ -18,6 +19,7 @@ server.register(inert, (err) => {
   if (err) throw err;
 
   server.route(routes);
+  server.route(login);
 });
 
 server.start((err) => {
