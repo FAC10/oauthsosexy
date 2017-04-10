@@ -1,5 +1,7 @@
 const request = require('request');
 require('env2')('./config.env');
+const bcrypt = require('bcrypt');
+const querystring = require('querystring');
 
 const welcome = {
   method: 'GET',
@@ -12,8 +14,13 @@ const welcome = {
     }
 
     request.post(options, (err, res, body) => {
-      console.log(body);
-    })
+      const token = querystring.parse(body).access_token;
+      console.log(token, '^^^^^^');
+
+    bcrypt.hash(token, 10, (err, hash) => {
+        console.log(hash, 'THIS IS HASH');
+      });
+    });
 
     reply.redirect('/');
 
